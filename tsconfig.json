@@ -1,21 +1,25 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "ES2019",
+		"sourceMap": true,
+		"outDir": "./dist",
+		"baseUrl": "./",
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"incremental": true,
+		"inlineSources": true,
+		"lib": ["ES2019", "ES2021"],
+		"paths": {
+			"@app/*": ["src/*"],
+			"@environments/*": ["src/environments/*"]
+		}
+	},
+	"exclude": ["node_modules", "dist"],
+	"include": ["src", "test"]
 }

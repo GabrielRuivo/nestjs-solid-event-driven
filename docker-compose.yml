@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  api-oracle-rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: api-oracle-rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672

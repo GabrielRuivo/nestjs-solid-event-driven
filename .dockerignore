@@ -1,0 +1,23 @@
+# Folders
+/.git/
+/dist/
+/test/
+/.idea/
+/.husky/
+/.vscode/
+/.github/
+__tests__/
+/node_modules/
+/prisma/entities/
+
+# Files
+.env
+*.log
+.nvmrc
+.babelrc
+*.spec.ts
+README.md
+.prettierrc
+prisma/seed.ts
+.eslintrc.js
+docker-compose.dev.yml

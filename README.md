@@ -1,73 +1,203 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <img src="./assets/logo-bankme.png" alt="Logo Bankme" width="91" height="108">
 </p>
+<h1 align="center">
+  <code>API Bankme</code>
+</h1>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Sumário
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- [Sumário](#sumário)
+- [👉 O que é?](#-o-que-é)
+- [💻 Pré-requisitos](#-pré-requisitos)
+- [🚀 Instalação](#-instalação)
+  - [Executando testes](#executando-testes)
+  - [Executando lint](#executando-lint)
+  - [Buildando o projeto](#buildando-o-projeto)
+- [🤝 Colaboradores](#-colaboradores)
 
-## Description
+## 👉 O que é?
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+API utilizada para gestão e controle de operações de crédito realizadas pelos Minibancos operantes da Bankme. 
 
-## Installation
+Além disso, expõe informações para todo o ecossistema Bankme, como por exemplo: informações de autenticação, operações, minibancos
+e recebíveis.
 
-```bash
+## 💻 Pré-requisitos
+
+Antes de começar, verifique se você atendeu aos seguintes requisitos:
+
+
+* Instalação e configuração do NodeJS;
+* Instalação e configuração do Docker;
+* VSCode e os plugins necessários para rodar o projeto;
+* Conhecimento prévio de NestJS;
+* Conhecimento de CI/CD com GitHub Actions;
+* Testes automatizados de software;
+
+## 🚀 Instalação
+
+Este projeto utiliza o `yarn` como gerenciador de pacotes.
+
+Primeiro, deve-se instalar os depêndencias, para isso iremos rodar no terminal, dentro da pasta do nosso projeto, um dos seguintes comandos:
+
+```
 $ yarn install
 ```
 
-## Running the app
+ou
 
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+```
+$ yarn
 ```
 
-## Test
+O próximo passo é criar nosso banco de dados local, esse processo é facilitado pelo nosso arquivo
+[docker-compose.local](./docker-compose.local.yml) que gera nosso container dentro do docker completamente pronto para nossa
+API se conectar com a mesma.
 
-```bash
-# unit tests
-$ yarn run test
+Mas antes precisaremos criar uma nova rede de conexão, para isso, basta rodar o seguinte comando:
 
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+```
+$ docker network create bankme-dev
 ```
 
-## Support
+Logo após, devemos criar um arquivo com o nome ".env" na root do nosso projeto e adicionar as chaves necessárias para a criação do nosso
+banco de dados. Solicite as chaves para alguém do time.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+> IMPORTANTE: Lembre-se de verificar se sua DATABASE_URL está apontando para o seu banco local, para evitar acidentes no nosso banco de DEV,
+> ou até mesmo no nosso banco de PROD!
 
-## Stay in touch
+Depois de criada nossa nova conexão, iremos rodar o comando responsável pela execução do nosso arquivo docker-compose, cujo o qual ira
+criar nosso container com nosso banco de dados PostgreSQL:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+$ yarn db:start-local
+```
 
-## License
+Caso queira saber mais sobre o comando, acesse o arquivo em que o mesmo está descrito [package.json](./package.json).
 
-Nest is [MIT licensed](LICENSE).
+Com nosso container criado, vamos aplicar as nossas migrations já criadas em nosso banco local:
+
+```
+$ yarn migrate:dev
+```
+
+Se após o comando terminar o nosso banco de dados continuar vazio (sem dados em nossas tabelas), basta rodar nosso
+*seed*, script utilizado para popular o banco de dados:
+
+```
+yarn db:reset
+```
+
+Vamos agora gerar a modelagem dos nossos dados utilizando o Prisma:
+
+```
+$ yarn prisma generate
+```
+
+Após isso nosso banco de dados estará criado, modelado e populado!
+
+Após todos estes passos concluídos podemos rodar nosso projeto utilizando o seguinte comando:
+
+```
+$ yarn dev
+```
+
+### Executando testes
+
+A melhor maneira de se familiarizar com um projeto é através dos seus testes!
+
+Para executar os testes do projeto, use o comando:
+
+```bash
+$ yarn test
+```
+
+### Executando lint
+
+```bash
+$ yarn lint
+```
+
+### Buildando o projeto
+
+```bash
+$ yarn build
+```
+
+## 🤝 Colaboradores
+
+Agradecemos às seguintes pessoas que contribuíram para este projeto:
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/lumiano.png" width="100px;"/><br>
+        <sub>
+          <b>Keven Lucas</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/Jott4.png" width="100px;"/><br>
+        <sub>
+          <b>João Vitor Cunha</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/GabrielRuivo.png" width="100px;"/><br>
+        <sub>
+          <b>Gabriel Ruivo</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/immarcolagroot.png" width="100px;"/><br>
+        <sub>
+          <b>João Marcolino</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/luiseduardoluz.png" width="100px;"/><br>
+        <sub>
+          <b>Luis Eduardo Luz</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/Joao208.png" width="100px;"/><br>
+        <sub>
+          <b>João Augusto</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/DiogoZdev.png" width="100px;"/><br>
+        <sub>
+          <b>Diogo Lara</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/diogocezar.png" width="100px;"/><br>
+        <sub>
+          <b>Diogo Cezar</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+[⬆ Voltar ao topo](#sumário)<br>
