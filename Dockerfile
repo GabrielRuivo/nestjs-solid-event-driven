@@ -1,4 +1,4 @@
-FROM node:lts AS builder
+FROM node:18.16.1 AS builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN echo //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN >> ~/.npmrc
 
 COPY package.json yarn.lock tsconfig* nest-cli.json ./
 
-RUN yarn install --prod
+RUN yarn install
 
 COPY . .
 
@@ -19,10 +19,15 @@ RUN yarn add @nestjs/cli
 
 RUN yarn build
 
-FROM node:lts
+FROM node:18.16.1
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/dist ./dist
 
-CMD [ "node", "dist/main" ]
+EXPOSE 3000
+
+# Script para esperar o RabbitMQ iniciar antes de iniciar o aplicativo
+CMD sleep 10 && node dist/main
+
+# CMD [ "node", "dist/main" ]

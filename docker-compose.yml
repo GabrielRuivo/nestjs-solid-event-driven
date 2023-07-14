@@ -1,9 +1,20 @@
-version: '3.9'
-
+version: '3'
 services:
-  api-oracle-rabbitmq:
-    image: rabbitmq:management-alpine
-    container_name: api-oracle-rabbitmq
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 15672:15672
-      - 5672:5672
+      - '3000:3000'
+    environment:
+      - RABBITMQ_HOSTNAME=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
